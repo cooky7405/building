@@ -1,9 +1,17 @@
-import type { Building } from "@/types/building"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Search } from "lucide-react"
-import Link from "next/link"
-import { Input } from "@/components/ui/input"
+import type { Building } from "@/types/building";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Search } from "lucide-react";
+import Link from "next/link";
+import { Input } from "@/components/ui/input";
+import Image from "next/image";
 
 // 임시 데이터 - 실제 구현에서는 데이터베이스에서 가져올 것입니다
 const buildings: Building[] = [
@@ -31,7 +39,7 @@ const buildings: Building[] = [
     floors: 8,
     imageUrl: "/placeholder.svg?height=200&width=300",
   },
-]
+];
 
 export default function Home() {
   return (
@@ -40,17 +48,23 @@ export default function Home() {
 
       <div className="relative mb-6">
         <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-        <Input type="search" placeholder="빌딩 이름 또는 주소로 검색" className="w-full pl-8 rounded-md" />
+        <Input
+          type="search"
+          placeholder="빌딩 이름 또는 주소로 검색"
+          className="w-full pl-8 rounded-md"
+        />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {buildings.map((building) => (
           <Card key={building.id} className="overflow-hidden">
-            <div className="h-[200px] w-full overflow-hidden">
-              <img
+            <div className="h-[200px] w-full overflow-hidden relative">
+              <Image
                 src={building.imageUrl || "/placeholder.svg"}
                 alt={building.name}
-                className="w-full h-full object-cover transition-transform hover:scale-105"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover transition-transform hover:scale-105"
               />
             </div>
             <CardHeader>
@@ -70,6 +84,5 @@ export default function Home() {
         ))}
       </div>
     </main>
-  )
+  );
 }
-

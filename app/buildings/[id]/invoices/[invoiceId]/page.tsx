@@ -98,7 +98,7 @@ export default function InvoiceDetailPage({
   params: { id: string; invoiceId: string };
 }) {
   const router = useRouter();
-  const [invoice, setInvoice] = useState(getInvoiceData(params.invoiceId));
+  const [invoice] = useState(getInvoiceData(params.invoiceId));
   const printRef = useRef<HTMLDivElement>(null);
 
   // 총액 계산
@@ -150,7 +150,7 @@ export default function InvoiceDetailPage({
           text: `${invoice.buildingName} - ${invoice.title}`,
           url: window.location.href,
         });
-      } catch (error) {
+      } catch {
         toast.error("공유에 실패했습니다");
       }
     } else {
