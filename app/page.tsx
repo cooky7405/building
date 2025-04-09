@@ -1,3 +1,5 @@
+"use client";
+
 import type { Building } from "@/types/building";
 import {
   Card,
@@ -12,6 +14,8 @@ import { Search } from "lucide-react";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import React, { useState } from "react";
+import Modal from "react-modal";
 
 // 임시 데이터 - 실제 구현에서는 데이터베이스에서 가져올 것입니다
 const buildings: Building[] = [
@@ -21,7 +25,7 @@ const buildings: Building[] = [
     address: "서울시 강남구 테헤란로 123",
     units: 45,
     floors: 15,
-    imageUrl: "/1320866.svg",
+    imageUrl: "/building1.jpg",
   },
   {
     id: "2",
@@ -41,7 +45,35 @@ const buildings: Building[] = [
   },
 ];
 
+const customModalStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    maxWidth: "90vw",
+    maxHeight: "90vh",
+  },
+  overlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.75)",
+  },
+};
+
 export default function Home() {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState("");
+
+  const openModal = (imageUrl: string) => {
+    setSelectedImage(imageUrl);
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
   return (
     <main className="container mx-auto p-4 py-8">
       <h1 className="text-3xl font-bold mb-6">빌딩 관리 시스템</h1>
@@ -65,6 +97,9 @@ export default function Home() {
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-cover transition-transform hover:scale-105"
+                onClick={() =>
+                  openModal(building.imageUrl || "/placeholder.svg")
+                }
               />
             </div>
             <CardHeader>
@@ -83,6 +118,23 @@ export default function Home() {
           </Card>
         ))}
       </div>
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customModalStyles}
+      >
+        <Image
+          src={selectedImage}
+          alt="확대된 이미지"
+          width={400}
+          height={300}
+          style={{ maxWidth: "100%", maxHeight: "90vh" }}
+        />
+        <button onClick={closeModal} className="close-button">
+          닫기
+        </button>
+      </Modal>
     </main>
   );
 }
