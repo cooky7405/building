@@ -21,7 +21,7 @@ const buildings: Building[] = [
     address: "서울시 강남구 테헤란로 123",
     units: 45,
     floors: 15,
-    imageUrl: "/placeholder.svg?height=200&width=300",
+    imageUrl: "/1320866.svg",
   },
   {
     id: "2",
@@ -29,7 +29,7 @@ const buildings: Building[] = [
     address: "서울시 서초구 서초대로 456",
     units: 30,
     floors: 10,
-    imageUrl: "/placeholder.svg?height=200&width=300",
+    imageUrl: "/1320866.svg",
   },
   {
     id: "3",
@@ -37,7 +37,7 @@ const buildings: Building[] = [
     address: "서울시 용산구 이태원로 789",
     units: 25,
     floors: 8,
-    imageUrl: "/placeholder.svg?height=200&width=300",
+    imageUrl: "/1320866.svg",
   },
 ];
 
